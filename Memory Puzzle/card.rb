@@ -1,7 +1,7 @@
 class Card
   attr_reader :face_value, :card_up, :num_pairs
 
-  ALPHABET = ("A".."Z").to_a
+  @@alphabet = ("A".."Z").to_a
   @@num_pairs = []
 
   def initialize
@@ -9,9 +9,10 @@ class Card
     #   check if face_value is not included num_pairs
     #       shovel face_value to num_pairs
     while @face_value == nil
-      @face_value = ALPHABET.sample
+      @face_value = @@alphabet.sample
       if !@@num_pairs.include?(@face_value)
         @@num_pairs << @face_value
+        @@alphabet.delete(@face_value)
       else
         @face_value = nil
       end
