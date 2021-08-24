@@ -19,9 +19,10 @@ class Board
     def create_cards
         card_num = @size / 2 
         card_num.times do
-            @cards << Card.new
+            card_1 = Card.new
+            card_2 = Card.new(card_1.face_value)
+            @cards.push(card_1,card_2)
         end
-        @cards+=@cards
     end
 
     def shuffle_cards
@@ -34,7 +35,7 @@ class Board
         i=0
         @board.each_with_index do |row,i_r|
             row.each_with_index do |ele,i_c|
-                @board[i_r][i_c] = @cards[i].face_value
+                @board[i_r][i_c] = @cards[i]
                 i+=1
             end
         end
@@ -49,8 +50,35 @@ class Board
             puts
             print "#{r_i} "
             row.each_with_index do |el, c_i|
-                print "#{el} "
+                if el.card_up
+                    print "#{el.face_value} "
+                else
+                    print "  "
+                end
             end
         end
+    end
+
+    def won?
+        @cards.all? {|card| card.card_up == true }
+    end
+    
+    def reveal
+        puts "Enter row,column index: 'r c'"
+        response = gets.chomp.split.map(&:to_i)
+        unless self[response].card_up
+            self[response].reveal
+        end
+        self[response].face_value
+    end
+
+    def [](position)
+        row, col = position
+        @board[row][col]
+    end
+
+    def []=(position, face_value)
+        row, col = position
+        @board[row][col] = face_value
     end
 end

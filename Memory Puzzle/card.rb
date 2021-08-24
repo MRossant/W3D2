@@ -4,10 +4,11 @@ class Card
   @@alphabet = ("A".."Z").to_a
   @@num_pairs = []
 
-  def initialize
+  def initialize(face_value=nil)
     #if face_value = alphabet sample
     #   check if face_value is not included num_pairs
     #       shovel face_value to num_pairs
+    @face_value=face_value
     while @face_value == nil
       @face_value = @@alphabet.sample
       if !@@num_pairs.include?(@face_value)
@@ -24,7 +25,7 @@ class Card
     @card_up = false
   end
 
-  def reveal?
+  def reveal
     @card_up = true
   end
 
