@@ -29,15 +29,17 @@ class Game
             @previous_guess = @board.reveal_space
             system("clear")
             @board.render
-            sleep(3)
             @guessed_position = @board.reveal_space
             if @previous_guess.face_value != @guessed_position.face_value
-                sleep(5)
+                sleep(2)
                 @previous_guess.hide
                 @guessed_position.hide
                 @previous_guess = nil
                 @guessed_position = nil
             end
         end
+        
+        @board.render
+        puts "YOU WIN 🎉"
     end
 end

@@ -57,6 +57,8 @@ class Board
                 end
             end
         end
+
+        puts
     end
 
     def won?
