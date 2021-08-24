@@ -63,7 +63,7 @@ class Board
         @cards.all? {|card| card.card_up == true }
     end
     
-    def reveal
+    def reveal_space
         puts "Enter row,column index: 'r c'"
         response = gets.chomp.split.map(&:to_i)
         unless self[response].card_up
@@ -80,5 +80,11 @@ class Board
     def []=(position, face_value)
         row, col = position
         @board[row][col] = face_value
+    end
+
+    def hide_all_cards
+        @board.flatten.each do |card|
+            card.hide
+        end
     end
 end
