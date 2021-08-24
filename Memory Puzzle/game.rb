@@ -3,7 +3,7 @@ require_relative "card.rb"
 
 class Game
 
-    attr_reader :board
+    attr_reader :board, :previous_guess, :guessed_position
 
     def get_position
         puts "Yo, enter the row, col size"
@@ -14,6 +14,8 @@ class Game
         @size = self.get_position
         @board = Board.new(@size[0], @size[1])
         @board.populate
+        @previous_guess = nil
+        @guessed_position = nil
     end
 
     def play
@@ -21,14 +23,21 @@ class Game
         sleep(5)
         system("clear")
         @board.hide_all_cards
-        @board.render
-
         until @board.won?
-            
-
-
+            system("clear")
+            @board.render
+            @previous_guess = @board.reveal_space
+            system("clear")
+            @board.render
+            sleep(3)
+            @guessed_position = @board.reveal_space
+            if @previous_guess.face_value != @guessed_position.face_value
+                sleep(5)
+                @previous_guess.hide
+                @guessed_position.hide
+                @previous_guess = nil
+                @guessed_position = nil
+            end
         end
-
     end
-
 end

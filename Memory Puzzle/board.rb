@@ -69,7 +69,7 @@ class Board
         unless self[response].card_up
             self[response].reveal
         end
-        self[response].face_value
+        self[response]
     end
 
     def [](position)
