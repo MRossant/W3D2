@@ -1,5 +1,6 @@
 class Card
-  attr_reader :face_value, :card_up
+  attr_reader :face_value, :card_up, :num_pairs
+
   ALPHABET = ("A".."Z").to_a
   @@num_pairs = []
 
@@ -12,7 +13,7 @@ class Card
       if !@@num_pairs.include?(@face_value)
         @@num_pairs << @face_value
       else
-        
+        @face_value = nil
       end
     end
     @card_up = true
